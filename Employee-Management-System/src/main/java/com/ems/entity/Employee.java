@@ -7,17 +7,17 @@ import javax.persistence.Id;
 
 @Entity
 public class Employee {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	private String firstName;
-	
+
 	private String lastName;
-	
+
 	private String Dept;
-	
+
 	private String email;
 
 	public Integer getId() {
@@ -59,9 +59,18 @@ public class Employee {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-	
-	
+
+	public Employee(Integer id, String firstName, String lastName, String dept, String email) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		Dept = dept;
+		this.email = email;
+	}
+
+	public Employee() {
+		super();
+	}
 
 }
