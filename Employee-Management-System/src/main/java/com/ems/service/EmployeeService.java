@@ -1,5 +1,7 @@
 package com.ems.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,12 @@ public class EmployeeService implements IEmployeeService {
 	public Integer saveEmployee(Employee employee) {
 		Employee saveEmployee = daoRepo.save(employee);
 		return saveEmployee.getId();
+	}
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		
+		return daoRepo.findAll();
 	}
 	
 
