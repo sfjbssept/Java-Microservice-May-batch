@@ -45,6 +45,11 @@ public class EmployeeService implements IEmployeeService {
 		daoRepo.save(existingEmployee);
 		return existingEmployee;
 	}
+
+	@Override
+	public void deleteEmployee(Integer id) {
+		daoRepo.deleteById(id);
+	}
 	
 	
 
