@@ -1,7 +1,7 @@
 package com.employee.controller;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,11 +24,11 @@ public class EmployeeController {
 	RestTemplate restTemplate;
 	
 	@GetMapping("/{eId}")
-	public Employee getEmployee(@PathVariable("eId") Long eId) {
-		Employee employee = iEmployeeService.getEmployee(eId);
+	public Optional<Employee> getEmployee(@PathVariable("eId") Long eId) {
+		Optional<Employee> employee = iEmployeeService.getEmployee(eId);
 		
-		List records = restTemplate.getForObject("http://localhost:8081/record/" + eId, List.class);
-		employee.setRecords(records);
+		//List records = restTemplate.getForObject("http://localhost:8081/record/" + eId, List.class);
+         //  employee.setRecords(records);
 		return employee;		
 	}
 	

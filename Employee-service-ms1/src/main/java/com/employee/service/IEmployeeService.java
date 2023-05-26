@@ -1,9 +1,11 @@
 package com.employee.service;
 
+import java.util.Optional;
+
 import com.employee.entity.Employee;
 
 public interface IEmployeeService {
 	
-	public Employee getEmployee(Long id);
+	Optional<Employee> getEmployee(Long id);
 
 }

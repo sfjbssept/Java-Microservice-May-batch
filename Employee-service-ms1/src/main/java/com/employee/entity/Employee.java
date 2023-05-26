@@ -3,14 +3,19 @@ package com.employee.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Employee {
 
+	@Id
 	private Long eId;
 	private String name;
 	private String phone;
 	private String email;
 	
-	List<Record> records =new ArrayList<>();
+	//List<Record> records =new ArrayList<>();
 
 	public Long geteId() {
 		return eId;
@@ -44,13 +49,13 @@ public class Employee {
 		this.email = email;
 	}
 
-	public List<Record> getRecords() {
-		return records;
-	}
-
-	public void setRecords(List<Record> records) {
-		this.records = records;
-	}
+//	public List<Record> getRecords() {
+//		return records;
+//	}
+//
+//	public void setRecords(List<Record> records) {
+//		this.records = records;
+//	}
 
 	public Employee(Long eId, String name, String phone, String email, List<Record> records) {
 		super();
@@ -58,7 +63,7 @@ public class Employee {
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
-		this.records = records;
+		//this.records = records;
 	}
 
 	public Employee(Long eId, String name, String phone, String email) {
