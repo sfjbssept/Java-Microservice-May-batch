@@ -23,5 +23,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	public ResponseEntity<?> getEmployee() {
 		return ResponseEntity.ok(this.iEmployeeRepo.findAll());
 	}
+	// add get employee by id method in service and in controller 
+	// update employee by id 
+	// delete employee by id 
+//	public ResponseEntity<?> getEmployee() {
+//		return ResponseEntity.ok(this.iEmployeeRepo.findById(id));
+//	}
+//	
+	
 
 }
