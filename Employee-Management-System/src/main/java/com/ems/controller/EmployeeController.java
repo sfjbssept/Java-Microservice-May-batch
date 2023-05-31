@@ -19,35 +19,41 @@ import com.ems.service.IEmployeeService;
 
 @RestController
 public class EmployeeController {
-	
+
 	@Autowired
 	IEmployeeService iEmployeeService;
-	
+
+	@GetMapping("/")
+	public String hello() {
+		return "Hello world this is our first springboot app /n"
+				+ " add /employee to post , go to /allemployees for all emp";
+	}
+
 	@PostMapping("/employee")
 	Integer createEmployee(@RequestBody Employee employee) {
 		Integer id = iEmployeeService.saveEmployee(employee);
 		System.out.println(id);
 		return id;
 	}
-	
+
 	@GetMapping("/allemployees")
 	public List<Employee> getAllEmployees() {
 		return iEmployeeService.getAllEmployees();
 	}
-	
+
 	@GetMapping("/employee/{id}")
 	public Optional<Employee> getEmployee(@PathVariable Integer id) {
 		Optional<Employee> employee = iEmployeeService.getEmployee(id);
 		return employee;
 	}
-	
+
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Integer id, @RequestBody Employee employee){
-		
+	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Integer id, @RequestBody Employee employee) {
+
 		return new ResponseEntity<Employee>(iEmployeeService.updateEmployee(employee, id), HttpStatus.OK);
-		
+
 	}
-	
+
 	@DeleteMapping("/remove/{id}")
 	public ResponseEntity<Employee> deleteEmployee(@PathVariable Integer id) {
 		System.out.println(id);
@@ -60,6 +66,5 @@ public class EmployeeController {
 		}
 		return responseEntity;
 	}
-	
 
 }
