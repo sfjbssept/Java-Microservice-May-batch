@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,14 +16,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ems.entity.AuthRequest;
 import com.ems.entity.Employee;
 import com.ems.service.IEmployeeService;
+import com.ems.util.JwtUtil;
 
 @RestController
 public class EmployeeController {
 
 	@Autowired
 	IEmployeeService iEmployeeService;
+
+	@Autowired
+	private JwtUtil jwtUtil;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@PostMapping("/authenticate")
+	public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+		try {
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
+		} catch (Exception ex) {
+			throw new Exception("invalid username and password");
+		}
+		return jwtUtil.generateToken(authRequest.getUserName());
+	}
 
 	@GetMapping("/")
 	public String hello() {
