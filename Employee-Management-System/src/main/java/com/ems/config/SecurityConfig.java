@@ -9,9 +9,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.ems.filter.JwtFilter;
 import com.ems.service.CustomUserDetailService;
 
 @Configuration
@@ -21,11 +24,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private  CustomUserDetailService userDetailsService;
 	
+	@Autowired
+	private JwtFilter jwtFilter;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
 		auth.userDetailsService(userDetailsService);
 	}
+	
+	
+	
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -41,7 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-	http.csrf().disable().authorizeRequests().antMatchers("/authenticate").permitAll().anyRequest().authenticated();
+	http.csrf().disable().authorizeRequests().antMatchers("/authenticate").permitAll().anyRequest()
+	.authenticated().and()
+	.exceptionHandling().and()
+	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 }
