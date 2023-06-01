@@ -14,22 +14,21 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	private IEmployeeRepo iEmployeeRepo;
 
 	@Override
-	public ResponseEntity<?> addEmployee(Employee employee) {
-		Employee save = this.iEmployeeRepo.save(employee);
-		return ResponseEntity.ok(save);
+	public Employee addEmployee(Employee employee) {
+		//Employee save = this.iEmployeeRepo.save(employee);
+		return this.iEmployeeRepo.save(employee);
 	}
 
 	@Override
 	public ResponseEntity<?> getEmployee() {
 		return ResponseEntity.ok(this.iEmployeeRepo.findAll());
 	}
-	// add get employee by id method in service and in controller 
-	// update employee by id 
-	// delete employee by id 
-//	public ResponseEntity<?> getEmployee() {
-//		return ResponseEntity.ok(this.iEmployeeRepo.findById(id));
-//	}
-//	
+	
+
+	@Override
+	public void deleteEmp(Employee employee) {
+	 iEmployeeRepo.delete(employee);	
+	}
 	
 
 }

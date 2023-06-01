@@ -1,6 +1,7 @@
 package com.ems.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.ems.filter.JwtFilter;
 import com.ems.service.CustomUserDetailService;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -32,10 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		auth.userDetailsService(userDetailsService);
 	}
-	
-	
-	
-	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();

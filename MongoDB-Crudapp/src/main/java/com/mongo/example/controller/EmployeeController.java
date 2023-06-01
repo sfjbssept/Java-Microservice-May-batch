@@ -2,6 +2,7 @@ package com.mongo.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,30 +20,24 @@ public class EmployeeController {
 	@Autowired IEmployeeRepo iEmployeeRepo;
 	
 	@PostMapping("/emp")
-	public ResponseEntity<?> addEmployee(@RequestBody Employee employee){
-		ResponseEntity<?> emp = iEmployeeService.addEmployee(employee);
-		return ResponseEntity.ok(emp);
+	public Employee addEmployee(@RequestBody Employee employee){
+//		ResponseEntity<?> emp = iEmployeeService.addEmployee(employee);
+		return iEmployeeService.addEmployee(employee);
+				//ResponseEntity.ok(emp);
 	}
 	
 	@GetMapping("/getemp")
 	public ResponseEntity<?> getEmployee() {
 		return iEmployeeService.getEmployee();
 	}
-//	
-//	@PutMapping("/tutorials/{id}")
-//	public ResponseEntity<Tutorial> updateTutorial(@PathVariable("id") String id, @RequestBody Tutorial tutorial) {
-//	  Optional<Tutorial> tutorialData = tutorialRepository.findById(id);
-//
-//	  if (tutorialData.isPresent()) {
-//	    Tutorial _tutorial = tutorialData.get();
-//	    _tutorial.setTitle(tutorial.getTitle());
-//	    _tutorial.setDescription(tutorial.getDescription());
-//	    _tutorial.setPublished(tutorial.isPublished());
-//	    return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
-//	  } else {
-//	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//	  }
-//	}
+	
+	@DeleteMapping("/remove")
+	public Employee removeEmployee(@RequestBody Employee employee) {
+		iEmployeeService.deleteEmp(employee);
+		return employee;
+	}
+	
+	
 	
 
 }
