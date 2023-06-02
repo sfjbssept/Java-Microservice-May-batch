@@ -6,6 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -37,4 +41,12 @@ class MongoDbCrudappApplicationTests {
 		verify(employeeRepo, times(1)).delete(employee);
 	}
 
+	
+	@Test
+	public void getEmployeesTest() {
+		when(employeeRepo.findAll()).thenReturn(Stream.of(new Employee(102, "Esteban", "Driver", "Paris"),
+				new Employee(103, "Carlos", "Driver", "Paris"),
+				new Employee(104, "Max", "Driver", "Paris")).collect(Collectors.toList()));
+		assertEquals(3, employeeServiceImpl.getEmployee().size());
+	}
 }

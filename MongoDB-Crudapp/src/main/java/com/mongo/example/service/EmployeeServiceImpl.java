@@ -1,5 +1,7 @@
 package com.mongo.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	@Override
-	public ResponseEntity<?> getEmployee() {
-		return ResponseEntity.ok(this.iEmployeeRepo.findAll());
+	public List<Employee> getEmployee() {
+		List<Employee> employee = this.iEmployeeRepo.findAll();
+		System.out.println("Getting employees from database: " + employee);
+		return employee;
 	}
 	
 

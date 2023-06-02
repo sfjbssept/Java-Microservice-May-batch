@@ -1,5 +1,7 @@
 package com.mongo.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +29,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/getemp")
-	public ResponseEntity<?> getEmployee() {
+	public List<Employee> getEmployee() {
 		return iEmployeeService.getEmployee();
 	}
 	
